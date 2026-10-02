@@ -1,0 +1,7 @@
+# Build output
+release/
+dist/
+node_modules/
+
+# Local files
+*.log
