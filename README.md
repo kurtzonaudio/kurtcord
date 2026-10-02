@@ -2,7 +2,7 @@
 
 A custom Discord desktop client built for voice. High fidelity audio, call guards that keep the chaos out, and real control over your microphone, camera, and screen share.
 
-Current release: **2.7.8**
+Current release: **2.7.9**
 
 ## Download
 
@@ -10,21 +10,26 @@ Everything is on the [latest release page](https://github.com/kurtzonaudio/kurtc
 
 | File | What it is |
 | --- | --- |
-| `Kurtcord-2.7.8-Setup.exe` | Installer. Installs Kurtcord to your user folder and adds a Start menu entry. |
-| `Kurtcord-2.7.8-Portable.exe` | Portable. Run it from any folder or a USB drive, nothing gets installed. |
-| `Kurtcord-2.7.8-Setup.exe.zip` | The installer and the license in one zip, for passing around. |
+| `Kurtcord-2.7.9-Setup.exe` | Installer. Installs Kurtcord to your user folder and adds a Start menu entry. |
+| `Kurtcord-2.7.9-Portable.exe` | Portable. Run it from any folder or a USB drive, nothing gets installed. |
+| `Kurtcord-2.7.9-Setup.exe.zip` | The installer and the license in one zip, for passing around. |
 
 ## What Kurtcord is
 
 Kurtcord is a Windows desktop client for Discord. It runs Discord's own web app inside an Electron shell and adds a custom voice pipeline, extra audio and video controls, and a set of built-in plugins on top. Your account, servers, friends, and messages are the same as anywhere else. Kurtcord changes how your voice sounds and how a call behaves for you.
 
-## 2.7.8
+## 2.7.9
 
-2.7.8 fixes a bug where some calls played every voice twice, once through Discord's normal audio path and once through the client's own audio guard. The guard no longer opens a second playback path; it only listens to the call for the speaking rings, so it cannot double or echo voice audio anymore.
+2.7.9 rebuilds voice output so a call stays clean and audible the whole time. It fixes the two output bugs that were left:
 
-Also in this release:
+- Doubled or hollow voices. Some calls played every person twice through two playback paths, each copy a few milliseconds after the other, which is the thick, hollow doubling. Voice output now runs through one shared 48 kHz engine with a single playback path per person, and the hidden media element behind each voice is kept silent. Nothing else plays voice, so there is no second copy.
+- Voice cutting out after switching channels. After enough channel changes a voice could stay attached to an audio context that had stalled, so the VU meters and speaking rings kept moving while the voice was silent until the client restarted. The new engine reattaches every output when its stream changes, reapplies your output device after a device reset, and rebuilds itself if its clock stalls.
 
-- The voice quick panel no longer shows the removed codec picker, Spatial Audio, or the VST sections. It now matches the Voice & Video page.
+Per-user volume, local mutes, the live voice meter, and 96 kHz incoming voice all keep working. The engine runs at 48 kHz, the native rate of Discord voice, so nothing audible is lost. The account safety work from 2.7.7 is included.
+
+Also in this build:
+
+- The voice quick panel no longer shows the removed codec picker, Spatial Audio, or the VST sections. It matches the Voice & Video page.
 - The quick panel text is light on a solid dark background, so labels and descriptions stay readable in any Discord theme.
 - Audio Bitrate and Sample Rate moved up in Voice & Video, directly under Opus Complexity, and the Sample Rate note travels with its slider.
 - The Band width (Q) slider in the EQ now matches the layout of the other sliders.
