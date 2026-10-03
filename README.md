@@ -2,7 +2,7 @@
 
 A custom Discord desktop client built for voice. High fidelity audio, call guards that keep the chaos out, and real control over your microphone, camera, and screen share.
 
-Current release: **2.7.9**
+Current release: **2.8.0**
 
 ## Download
 
@@ -10,29 +10,49 @@ Everything is on the [latest release page](https://github.com/kurtzonaudio/kurtc
 
 | File | What it is |
 | --- | --- |
-| `Kurtcord-2.7.9-Setup.exe` | Installer. Installs Kurtcord to your user folder and adds a Start menu entry. |
-| `Kurtcord-2.7.9-Portable.exe` | Portable. Run it from any folder or a USB drive, nothing gets installed. |
-| `Kurtcord-2.7.9-Setup.exe.zip` | The installer and the license in one zip, for passing around. |
+| `Kurtcord-2.8.0-Setup.exe` | Installer. Installs Kurtcord to your user folder and adds a Start menu entry. |
+| `Kurtcord-2.8.0-Portable.exe` | Portable. Run it from any folder or a USB drive, nothing gets installed. |
+| `Kurtcord-2.8.0-Setup.exe.zip` | The installer and the license in one zip, for passing around. |
 
 ## What Kurtcord is
 
 Kurtcord is a Windows desktop client for Discord. It runs Discord's own web app inside an Electron shell and adds a custom voice pipeline, extra audio and video controls, and a set of built-in plugins on top. Your account, servers, friends, and messages are the same as anywhere else. Kurtcord changes how your voice sounds and how a call behaves for you.
 
+## 2.8.0
+
+2.8.0 adds full control over what you send: your screen share, your camera, and every Voice & Video setting, all live.
+
+**StreamEnhancer.** The StreamEnhancer plugin now ships inside Kurtcord's Voice & Video page. It tunes the screen share you send and the streams you watch:
+
+- Screen share quality: resolution up to 8K, frame rate up to 240 fps, video bitrate and a minimum bitrate floor, codec choice (Auto, AV1, VP9, H.264), one high quality layer, adaptive max quality, HDR capture, keyframe interval, and an SDP bitrate boost.
+- Stream previews: scale, saturation, contrast, upload resolution, JPEG quality, refresh and retry timing, a custom preview URL, and an optional upload filter.
+- Viewer controls: a resize slider in the stream menu and outgoing video filters.
+- Stream telemetry: outgoing and observed stream stats on demand.
+
+**Camera fixes.** The camera path is rebuilt:
+
+- Cameras render natively again. The gray tiles some calls showed are gone.
+- When no video filter is set, the camera passes through untouched instead of being re-encoded through a canvas. That was capping the camera at a fraction of its capture rate.
+- The camera encoder now uses a constant bitrate target from the Camera video bitrate slider instead of Discord's adaptive 150-400 kbps ladder, and it no longer inherits the screen share resolution.
+- Camera presets run from 720p60 up to 2160p60, plus 1080p120, with custom resolution, frame rate, and bitrate.
+
+**Voice & Video quick panel.** The side panel now mirrors the whole Voice & Video page in a smaller panel:
+
+- Voice: microphone, second and third microphone with their own device and volume, speaker, microphone and speaker volume, input profile (Voice Isolation, Studio, Custom), input sensitivity, noise suppression, echo cancellation, auto gain control, and push to talk.
+- Camera: always preview video, camera device, Advanced Camera Controls, quality preset, and Advanced Hardware Acceleration.
+- Streaming: stream previews.
+- Soundboard: soundboard volume.
+- Advanced: reset all Voice & Video settings.
+- Stream Enhancer: the full plugin panel.
+- The removed Opus codec, Spatial Audio, and VST sections are gone for good.
+
+**Optimizations.** Kurtcord and StreamEnhancer telemetry are off, the duplicate VU meter implementation is disabled (the built-in meters stay), React DevTools is off, and the second message logger no longer caches server messages in memory.
+
+The 2.7.9 voice output engine and the 2.7.7 account safety work are included.
+
 ## 2.7.9
 
-2.7.9 rebuilds voice output so a call stays clean and audible the whole time. It fixes the two output bugs that were left:
-
-- Doubled or hollow voices. Some calls played every person twice through two playback paths, each copy a few milliseconds after the other, which is the thick, hollow doubling. Voice output now runs through one shared 48 kHz engine with a single playback path per person, and the hidden media element behind each voice is kept silent. Nothing else plays voice, so there is no second copy.
-- Voice cutting out after switching channels. After enough channel changes a voice could stay attached to an audio context that had stalled, so the VU meters and speaking rings kept moving while the voice was silent until the client restarted. The new engine reattaches every output when its stream changes, reapplies your output device after a device reset, and rebuilds itself if its clock stalls.
-
-Per-user volume, local mutes, the live voice meter, and 96 kHz incoming voice all keep working. The engine runs at 48 kHz, the native rate of Discord voice, so nothing audible is lost. The account safety work from 2.7.7 is included.
-
-Also in this build:
-
-- The voice quick panel no longer shows the removed codec picker, Spatial Audio, or the VST sections. It matches the Voice & Video page.
-- The quick panel text is light on a solid dark background, so labels and descriptions stay readable in any Discord theme.
-- Audio Bitrate and Sample Rate moved up in Voice & Video, directly under Opus Complexity, and the Sample Rate note travels with its slider.
-- The Band width (Q) slider in the EQ now matches the layout of the other sliders.
+2.7.9 rebuilt voice output so a call stays clean and audible the whole time. It fixed doubled or hollow voices (two playback paths per person, now one shared 48 kHz engine with the hidden media element silenced) and voice cutting out after switching channels (the engine now reattaches every output when its stream changes, reapplies your output device after a device reset, and rebuilds itself if its clock stalls). Per-user volume, local mutes, the live voice meter, and 96 kHz incoming voice all keep working.
 
 ## 2.7.7 and account safety
 
@@ -62,9 +82,9 @@ Each guard keeps a "never mute" list. To add someone to it, right click their na
 
 ## Camera and screen share
 
-- Camera presets from 720p60 to 2160p60, plus custom resolution, frame rate, and bitrate.
-- HD video upload.
-- Screen share resolution, frame rate, bitrate, and a choice between quality and latency mode.
+- Camera presets from 720p60 to 2160p60, plus 1080p120 and custom resolution, frame rate, and bitrate. The camera sends a constant bitrate you set, not a value Discord picks for you.
+- Advanced Camera Controls remove Discord's 720p cap, and Advanced Hardware Acceleration forces GPU rasterisation, zero copy, and accelerated video decode.
+- Screen share resolution, frame rate, bitrate, and a choice between quality and latency mode, all from the StreamEnhancer panel in Voice & Video.
 
 ## Privacy
 
@@ -74,7 +94,7 @@ Each guard keeps a "never mute" list. To add someone to it, right click their na
 
 ## Built-in mods
 
-Kurtcord ships with the Equicord plugin suite and the Testcord plugins, ready out of the box. The voice guards, the voice state fix, and the rest of the Testcord set are already installed. Plugins can be toggled and configured from the client's own plugin settings.
+Kurtcord ships with the Equicord plugin suite and the Testcord plugins, ready out of the box. The voice guards, the voice state fix, StreamEnhancer, and the rest of the Testcord set are already installed. Plugins can be toggled and configured from the client's own plugin settings.
 
 ## How it works
 
