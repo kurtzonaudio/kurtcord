@@ -2,7 +2,7 @@
 
 A custom Discord desktop client built for voice. High fidelity audio, call guards that keep the chaos out, and real control over your microphone, camera, and screen share.
 
-Current release: **2.8.0**
+Current release: **2.8.1**
 
 ## Download
 
@@ -10,13 +10,25 @@ Everything is on the [latest release page](https://github.com/kurtzonaudio/kurtc
 
 | File | What it is |
 | --- | --- |
-| `Kurtcord-2.8.0-Setup.exe` | Installer. Installs Kurtcord to your user folder and adds a Start menu entry. |
-| `Kurtcord-2.8.0-Portable.exe` | Portable. Run it from any folder or a USB drive, nothing gets installed. |
-| `Kurtcord-2.8.0-Setup.exe.zip` | The installer and the license in one zip, for passing around. |
+| `Kurtcord-2.8.1-Setup.exe` | Installer. Installs Kurtcord to your user folder and adds a Start menu entry. |
+| `Kurtcord-2.8.1-Portable.exe` | Portable. Run it from any folder or a USB drive, nothing gets installed. |
+| `Kurtcord-2.8.1-Setup.exe.zip` | The installer and the license in one zip, for passing around. |
 
 ## What Kurtcord is
 
 Kurtcord is a Windows desktop client for Discord. It runs Discord's own web app inside an Electron shell and adds a custom voice pipeline, extra audio and video controls, and a set of built-in plugins on top. Your account, servers, friends, and messages are the same as anywhere else. Kurtcord changes how your voice sounds and how a call behaves for you.
+
+## 2.8.1
+
+2.8.1 brings the whole maintained plugin set into the client and finishes the camera and call guard fixes.
+
+**Plugin set.** All twelve maintained plugins are built in and current: ClickToUnmute, StaffTag, FakeVoice, LyricsStatus, StreamEnhancer, Custom Stream Quality, RoundedVCPFP, MicSpamGuard, StereoGuard, VoiceVUMeters, HasStrip, and PanelLayout. RoundedVCPFP and HasStrip are new to the client. If you want RoundedVCPFP, turn off the bundled FullVCPFP first.
+
+**Camera frame rate.** With no outgoing video filter set, the camera and screen share pass through untouched instead of being re-encoded through a canvas. That canvas was throttled whenever the client window was occluded, which dropped the camera to a fraction of its capture rate. Filters still apply when one is selected.
+
+**Camera bitrate.** The camera quality path now uses your Camera video bitrate setting at full ladder resolution with a constant min, target, and max, instead of Discord's adaptive 150-400 kbps ladder. The old screen share resolution override that starved the camera encoder is gone.
+
+**MicSpamGuard live levels.** Kurtcord's custom voice engine reports no audio level in its RTC stats, so MicSpamGuard showed 0% for everyone and never balanced or muted. The guard now measures each participant's decoded audio directly, so live levels, automatic balancing, and extreme loudness mutes work.
 
 ## 2.8.0
 
