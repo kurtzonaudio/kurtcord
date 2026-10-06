@@ -2,7 +2,7 @@
 
 A custom Discord desktop client built for voice. High fidelity audio, call guards that keep the chaos out, and real control over your microphone, camera, and screen share.
 
-Current release: **2.8.1**
+Current release: **2.8.2**
 
 ## Download
 
@@ -10,13 +10,23 @@ Everything is on the [latest release page](https://github.com/kurtzonaudio/kurtc
 
 | File | What it is |
 | --- | --- |
-| `Kurtcord-2.8.1-Setup.exe` | Installer. Installs Kurtcord to your user folder and adds a Start menu entry. |
-| `Kurtcord-2.8.1-Portable.exe` | Portable. Run it from any folder or a USB drive, nothing gets installed. |
-| `Kurtcord-2.8.1-Setup.exe.zip` | The installer and the license in one zip, for passing around. |
+| `Kurtcord-2.8.2-Setup.exe` | Installer. Installs Kurtcord to your user folder and adds a Start menu entry. |
+| `Kurtcord-2.8.2-Portable.exe` | Portable. Run it from any folder or a USB drive, nothing gets installed. |
+| `Kurtcord-2.8.2-Setup.exe.zip` | The installer and the license in one zip, for passing around. |
 
 ## What Kurtcord is
 
 Kurtcord is a Windows desktop client for Discord. It runs Discord's own web app inside an Electron shell and adds a custom voice pipeline, extra audio and video controls, and a set of built-in plugins on top. Your account, servers, friends, and messages are the same as anywhere else. Kurtcord changes how your voice sounds and how a call behaves for you.
+
+## 2.8.2
+
+2.8.2 fixes Discord's sounds and finishes the last two call fixes.
+
+**Discord sounds fixed.** Discord's latest web update changed their sound player, and the bundled patch that adapts Kurtcord to it silently stopped applying. Every Discord sound — mute and unmute beeps, join and leave sounds, message pings, notification sounds — was built with a missing sound name and failed to play. The patch now matches the new code, so all sounds play again.
+
+**Speaking indicator.** The green speaking ring now analyzes the raw voice stream at a higher resolution, so quiet speech that used to be missed lights it up. It also ignores people you muted locally, and speaking events carry the context Discord's current build expects, so the ring turns on and off reliably.
+
+**Voice playback lock.** After switching channels, Discord could re-attach and un-silence its own hidden audio element and fight the shared 48 kHz playback engine, which could bring back doubled or hollow voice. Kurtcord now locks that element: whenever Discord touches or plays it, it is re-silenced and re-enforced immediately, and the shared engine re-attaches if it was dropped.
 
 ## 2.8.1
 
