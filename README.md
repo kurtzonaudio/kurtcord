@@ -2,7 +2,7 @@
 
 A custom Discord desktop client built for voice. High fidelity audio, call guards that keep the chaos out, and real control over your microphone, camera, and screen share.
 
-Current release: **2.8.2**
+Current release: **2.8.3**
 
 ## Download
 
@@ -10,13 +10,23 @@ Everything is on the [latest release page](https://github.com/kurtzonaudio/kurtc
 
 | File | What it is |
 | --- | --- |
-| `Kurtcord-2.8.2-Setup.exe` | Installer. Installs Kurtcord to your user folder and adds a Start menu entry. |
-| `Kurtcord-2.8.2-Portable.exe` | Portable. Run it from any folder or a USB drive, nothing gets installed. |
-| `Kurtcord-2.8.2-Setup.exe.zip` | The installer and the license in one zip, for passing around. |
+| `Kurtcord-2.8.3-Setup.exe` | Installer. Installs Kurtcord to your user folder and adds a Start menu entry. |
+| `Kurtcord-2.8.3-Portable.exe` | Portable. Run it from any folder or a USB drive, nothing gets installed. |
+| `Kurtcord-2.8.3-Setup.exe.zip` | The installer and the license in one zip, for passing around. |
 
 ## What Kurtcord is
 
 Kurtcord is a Windows desktop client for Discord. It runs Discord's own web app inside an Electron shell and adds a custom voice pipeline, extra audio and video controls, and a set of built-in plugins on top. Your account, servers, friends, and messages are the same as anywhere else. Kurtcord changes how your voice sounds and how a call behaves for you.
+
+## 2.8.3
+
+2.8.3 takes Stream Enhancer out of Kurtcord's own panels and trims the installers.
+
+**Stream Enhancer removed from the client UI.** The Stream Enhancer section in the quick Voice & Video panel is gone, along with the code that mounted the plugin's settings there and the Better Screenshare shortcut that opened it. The plugin itself stays in the bundled plugin list, so it can still be enabled and configured from the plugin settings page, but Kurtcord no longer wires it into its own panels. Screen share quality now comes from Discord's own Go Live picker.
+
+**Smaller downloads.** The 2.8.2 installers carried a leftover 28 MB backup of an older client inside the install. That is gone, so the installer drops from 115.0 MB to 101.2 MB and the portable from 114.7 MB to 100.9 MB.
+
+Everything from 2.8.2 carries over unchanged: Discord sounds, the speaking indicator, the voice playback lock, the camera path, and the voice guards.
 
 ## 2.8.2
 
@@ -106,7 +116,7 @@ Each guard keeps a "never mute" list. To add someone to it, right click their na
 
 - Camera presets from 720p60 to 2160p60, plus 1080p120 and custom resolution, frame rate, and bitrate. The camera sends a constant bitrate you set, not a value Discord picks for you.
 - Advanced Camera Controls remove Discord's 720p cap, and Advanced Hardware Acceleration forces GPU rasterisation, zero copy, and accelerated video decode.
-- Screen share resolution, frame rate, bitrate, and a choice between quality and latency mode, all from the StreamEnhancer panel in Voice & Video.
+- Screen share quality comes from Discord's own Go Live picker. Kurtcord's Stream Enhancer panel, which used to live in Voice & Video, is gone as of 2.8.3.
 
 ## Privacy
 
@@ -116,7 +126,7 @@ Each guard keeps a "never mute" list. To add someone to it, right click their na
 
 ## Built-in mods
 
-Kurtcord ships with the Equicord plugin suite and the Testcord plugins, ready out of the box. The voice guards, the voice state fix, StreamEnhancer, and the rest of the Testcord set are already installed. Plugins can be toggled and configured from the client's own plugin settings.
+Kurtcord ships with the Equicord plugin suite and the Testcord plugins, ready out of the box. The voice guards, the voice state fix, and the rest of the Testcord set are already installed. Plugins can be toggled and configured from the client's own plugin settings.
 
 ## How it works
 
